@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div *ngIf="target">
 
-    <div class="row">
-      <div class="col-xs-12">
-        <h2 style="margin:auto;">{{target.name | uppercase}}</h2>
+    <div class="row" style="width: 95%; margin: auto;">
+      <div class="col-xs-12 target-name-header" >
+        <h2 class="" style="margin:auto;">{{target.name | uppercase}}</h2>
       </div>
     </div>
     
@@ -58,12 +58,12 @@
           <div class="row">
 
             <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
-                <label for="targetName">Target Name</label><br>
+                <label for="targetName">Target Company Name:</label><br>
               <input #targetName="ngModel" class="form-control" id="targetName" name="targetName" [(ngModel)]="target.name" placeholder="Target Name" type="text"
                required />
             </div>
             <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
-              <label for="targetStatus">Target Status:</label><br>
+              <label for="targetStatus">Target Company Status:</label><br>
                 <select class="form-control" id="targetStatus" name="targetStatus" [(ngModel)]="target.status" required>
                   <option *ngIf ="(target.status===null)" disabled [ngValue] = null >&lt;Select an option&gt;</option>
                   <option *ngFor="let targetStatusOption of targetStatusOptions" [value] = "targetStatusOption">{{targetStatusOption}}</option>
@@ -234,7 +234,7 @@
                     (click)="onSaveChanges();" 
                     (click)="edit=false;"
                     (click)="targetService.openSubmitSuccessDialog();">Save</button>
-            <button class="btn discard-button" (click)="edit=false">Cancel</button>
+            <button class="btn discard-button" (click)="onCancel();">Cancel</button>
           </div>
         </div>
       </form>

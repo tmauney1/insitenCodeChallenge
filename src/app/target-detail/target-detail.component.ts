@@ -36,6 +36,8 @@ export class TargetDetailComponent implements OnInit {
 
   selectedContact;
 
+  originalData;
+
   
 
   constructor( private route: ActivatedRoute, private targetService: TargetService, private location: Location, public dialog: MatDialog) { }
@@ -47,7 +49,10 @@ export class TargetDetailComponent implements OnInit {
   getTarget(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.targetService.getTarget(id)
-      .subscribe(target => this.target = target);
+      .subscribe(target => {
+        this.target = target;
+	      this.originalData = JSON.parse(JSON.stringify(this.target));
+      });
   }
 
   onSaveChanges(): void {
@@ -78,6 +83,13 @@ export class TargetDetailComponent implements OnInit {
   onSelect(contact): void {
     this.selectedContact = contact;
   }
+
+  onCancel(){
+    this.getTarget();
+    this.edit=false;
+    this.originalData = this.target;
+  }
+  
 
   openDeleteContactWarningDialog(): void {
     // Create a dialog configuration so we can customize the dialog. 
