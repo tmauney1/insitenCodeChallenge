@@ -5,7 +5,7 @@ import { Target } from './models/target';
 import { catchError, map, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { MatDialogConfig, MatDialog } from '@angular/material';
-import { SuccessDialogData, SuccessDialogComponent } from './success-dialog/success-dialog.component';
+import { SuccessDialogComponent, SuccessDialogData } from './success-dialog/success-dialog.component';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
