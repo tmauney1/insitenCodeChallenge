@@ -1,0 +1,200 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 contact-table-div">
+
+        <table style="width: 100%; margin:auto;">
+            <tr class="table-header">
+              <th>Account ID</th>
+              <th>Account Name</th>
+              <th></th>
+              <th>Date Last Updated</th>
+            </tr>
+            <tr *ngFor="let target of targets" style="text-align: left;">
+                <td>{{target.id}}</td>
+                <td>{{target.name}}</td>
+                <td>
+                  <a routerLink="/detail/{{target.id}}">
+                    <button class="btn btn-primary view-button">View/Edit</button>
+                  </a>
+                  <button class="btn btn-danger delete-button" (click)="onSelect(target)" (click)="openDeleteWarningDialog();" >Delete</button>
+                </td>
+                <td>{{target.dateLastUpdated | date}}</td>
+              </tr>
+          </table>
+
+    </div>
+  </div>
+
+  <div *ngIf="!addTargetForm" class="row">
+    <div class="col-xs-12 " style="margin-top: 20px; text-align: right;">
+        <button class="btn btn-primary" style="margin-right: 20px;" (click)="addTargetForm=true">Add New Target Company</button>
+    </div>
+  </div>
+
+  <div *ngIf="addTargetForm" class="row" style="margin-top:30px;">
+    <div class="col-xs-12">
+
+        <form #targetAddForm="ngForm" (keydown.enter)="$event.preventDefault()">
+            <div class="form-group">
+                <div class="row">
+                
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4" >
+                      <label for="targetName" >Target Company Name:</label><br>
+                      <input #targetName  class="form-control" name="targetName" type="text" [(ngModel)]="target.name" placeholder="Target Company Name" maxlength="50" required />
+                  </div>
+
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                    <label for="targetStatus" >Target Company Status:</label><br>
+                    <select #targetStatus  class="form-control" name="targetStatus" type="text" placeholder="contact name" [(ngModel)]="target.status" required >
+                      <option></option>
+                      <option>Researching</option>
+                      <option>Pending Approval</option>
+                      <option>Approved</option>
+                      <option>Declined</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <label style="text-align: center;">
+                      Company Address:
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                    <label for="targetCompanyStreet">Street:</label><br>
+                    <input #targetCompanyStreet class="form-control" name="targetCompanyStreet" [(ngModel)]="target.companyAddress.street" type="text" placeholder="Street" maxlength="50" required />
+                  </div>
+                  
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                    <label for="targetCompanyCity">City:</label><br>
+                    <input #targetCompanyCity class="form-control" name="targetCompanyCity" [(ngModel)]="target.companyAddress.city" type="text" placeholder="City" maxlength="50" required />
+                  </div>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetCompanyState">State:</label><br>
+                    <select #targetCompanyState class="form-control" [(ngModel)]="target.companyAddress.state" id="targetCompanyState" name="targetCompanyState" required >
+                      <option></option>
+                      <option *ngFor="let state of states" [value] = "state">{{state}}</option>
+                    </select>
+                  </div>
+                  
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                    <label for="targetCompanyZip">Zip Code:</label><br>
+                    <input #targetCompanyZip class="form-control" [(ngModel)]="target.companyAddress.zipCode" name="targetCompanyZip" type="text" placeholder="Zip Code" maxlength="6" required />
+                  </div>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                  
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetCompanyInfo">Company Description/Information:</label><br>
+                  <textarea #targetCompanyInfo class="form-control" [(ngModel)]="target.companyInfo" name="targetCompanyInfo" maxlength="250" required ></textarea>
+                </div>
+              </div>
+            </div>
+          
+            <div class="row">
+              <div class="col-xs-12">
+                <label style="text-align: center;">
+                  Key Contact:
+                </label>
+              </div>
+            </div>
+
+            
+            <div class="form-group">
+              <div class="row">
+                
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetContactName">Contact Name:</label><br>
+                  <input #targetKeyContactName class="form-control" [(ngModel)]="target.keyContacts.name" name="targetKeyContactName" type="text" placeholder="Contact Name" maxlength="50" required/>
+                </div>
+
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetContactPhoneNumber">Contact Phone Number:</label><br>
+                  <input #targetKeyContactPhoneNumber="ngModel" class="form-control" [(ngModel)]="target.keyContacts.phoneNumber" name="targetKeyContactPhoneNumber" type="text" pattern="^\d{3}-\d{3}-\d{4}$" maxlength="12" placeholder="999-999-9999" required />
+                
+                  <div class="row"> 
+                    <div class="col-xs-6">
+                      <p *ngIf="!targetKeyContactPhoneNumber.valid && !targetKeyContactPhoneNumber.pristine" class="alert alert-danger">999-999-9999</p>
+                    </div> 
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row" style="margin-top: -50px; margin-bottom: 15px;">
+              <div class="col-xs-12">
+                <label style="text-align: center;">
+                      (Additional contacts can be added after submission)
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <label style="text-align: center">
+                  Finacial Performance:
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetRevenue">Revenue:</label><br>
+                  <input #targetRevenue class="form-control" [(ngModel)]="target.financialPerformance.revenue" name="targetRevenue" type="text" placeholder="Revenue" maxlength="13" required />
+                </div>
+                
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetExpenses"> Expenses:</label><br>
+                  <input #targetExpenses class="form-control" [(ngModel)]="target.financialPerformance.expenses" name="targetExpenses" type="text" placeholder="Expenses" maxlength="13" required />
+                </div>
+                
+              </div>
+            </div>
+                  
+            <button class="btn btn-success" style="margin-bottom: 10px;" type="submit" form="targetAddForm" [disabled]=(!targetAddForm.valid) 
+                    (click)="add(target.name, target.status, target.companyAddress.street,
+                                  target.companyAddress.city, target.companyAddress.state, target.companyAddress.zipCode,
+                                  target.companyInfo, target.keyContacts.name, target.keyContacts.phoneNumber,
+                                  target.financialPerformance.revenue, target.financialPerformance.expenses); 
+                            target.name='';
+                            target.status='';
+                            target.companyAddress.street='';
+                            target.companyAddress.city='';
+                            target.companyAddress.state='';
+                            target.companyAddress.zipCode='';
+                            target.companyInfo='';
+                            target.keyContacts.name='';
+                            target.keyContacts.phoneNumber='';
+                            target.financialPerformance.revenue='';
+                            target.financialPerformance.expenses='';"
+                    (click)="addTargetForm=false;"
+                    (click)="targetService.openSubmitSuccessDialog();">Add Contact</button>
+
+            <button class="btn discard-button" (click)="addTargetForm=false">Cancel</button>
+          </form>
+        </div>
+    </div>
+</div>
+

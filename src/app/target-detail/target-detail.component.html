@@ -1,0 +1,242 @@
+<div class="container-fluid">
+  <div *ngIf="target">
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 style="margin:auto;">{{target.name | uppercase}}</h2>
+      </div>
+    </div>
+    
+    <div class="row" style="box-shadow: 5px 10px 10px 0px rgba(0,0,0,.6); width: 95%; margin:auto;">
+      <div class="col-lg-3 col-lg-offset-0 col-md-4 col-sm-6 col-xs-12 info-div">
+        <h4 class="header-paragraph">Status: </h4>
+        <p>{{target.status}}</p>
+      </div>
+
+      <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 info-div">
+        <h4 class="header-paragraph">Account Description:</h4>
+        <p>{{target.companyInfo}}</p>
+       </div>
+       
+       <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 info-div">
+         <h4 class="header-paragraph">Key Contact(s): </h4>
+         <p *ngFor="let keyContact of target.keyContacts">
+           <span style="font-weight: bold">Name:</span>
+            {{keyContact.name}}<br> 
+            <span style="font-weight: bold">Phone:</span> 
+            {{keyContact.phoneNumber}}</p>
+        </div>
+        
+        <div class="col-lg-2 col-lg-offset-0 col-md-offset-2 col-md-4 col-sm-6 col-xs-12 info-div">
+          <h4 class="header-paragraph">Address:</h4>
+          <p> {{target.companyAddress.street}}<br>{{target.companyAddress.city}}, {{target.companyAddress.state}} {{target.companyAddress.zipCode}} </p>
+        </div>
+        
+        <div class="col-lg-3 col-lg-offset-0 col-md-offset-0 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12 info-div">
+          <h4 class="header-paragraph">Finacial Performance:</h4>
+          <p> <span style="font-weight: bold">Revenue:</span><br> {{target.financialPerformance.revenue}}</p>
+          <p> <span style="font-weight: bold">Expenses:</span><br> {{target.financialPerformance.expenses}}</p>
+        </div>
+      </div>
+      
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-xs-6" style="margin:auto">
+          <button type="button" class="btn btn-primary" (click)="edit=true;">Edit/Update Target Info</button>
+        </div>
+        <div class="col-xs-6" style="margin:auto">
+          <button type="button" class="btn btn-primary" (click)="goBack();">Go Back</button>
+        </div>
+      </div>
+    </div>
+
+
+  <div *ngIf="edit" class="row">
+    <div class="col-xs-12">
+      <form #targetEditForm="ngForm">
+
+        <div class="form-group">
+          <div class="row">
+
+            <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                <label for="targetName">Target Name</label><br>
+              <input #targetName="ngModel" class="form-control" id="targetName" name="targetName" [(ngModel)]="target.name" placeholder="Target Name" type="text"
+               required />
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+              <label for="targetStatus">Target Status:</label><br>
+                <select class="form-control" id="targetStatus" name="targetStatus" [(ngModel)]="target.status" required>
+                  <option *ngIf ="(target.status===null)" disabled [ngValue] = null >&lt;Select an option&gt;</option>
+                  <option *ngFor="let targetStatusOption of targetStatusOptions" [value] = "targetStatusOption">{{targetStatusOption}}</option>
+                  <option *ngIf  = "(target.status!==null)" [ngValue] = null  >&lt;Remove selection&gt;</option>
+                </select>
+              </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12">
+                <label style="text-align: center;">
+                    Company Address:
+                </label>
+            </div>
+          </div>
+
+        <div class="form-group">
+            <div class="row">
+              <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetCompanyStreet">Street:</label><br>
+                <input #targetCompanyStreet="ngModel" class="form-control" id="targetCompanyStreet" name="targetCompanyStreet" [(ngModel)]="target.companyAddress.street" placeholder="Company Street" type="text"
+                 required/>
+              </div>
+              
+              <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                <label for="targetCompanyCity">City:</label><br>
+                  <input #targetCompanyCity="ngModel" class="form-control" id="targetCompanyCity" name="targetCompanyCity" [(ngModel)]="target.companyAddress.city" placeholder="Company City" type="text"
+                         required/>
+              </div>
+
+            </div>
+          </div>
+          
+          <div class="form-group">
+              <div class="row">
+
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                    <label for="targetCompanyState">State:</label><br>
+                    <select class="form-control" id="targetCompanyState" name="targetCompanyState" [(ngModel)]="target.companyAddress.state" required>
+                      <option *ngIf ="(target.companyAddress.state===null)" disabled [ngValue] = null >&lt;Select an option&gt;</option>
+                      <option *ngFor="let state of states" [value] = "state">{{state}}</option>
+                      <option *ngIf  = "(target.companyAddress.state!==null)" [ngValue] = null  >&lt;Remove selection&gt;</option>
+                    </select>
+                </div>
+                
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetCompanyZip">Zip Code:</label><br>
+                  <input #targetCompanyZip="ngModel" class="form-control" id="targetCompanyZip" name="targetCompanyZip" [(ngModel)]="target.companyAddress.zipCode" placeholder="Company Zip Code" type="text"
+                         required/>
+                  </div>
+
+              </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                    <label for="targetCompanyInfo">Company Description/Information:</label><br>
+                    <textarea #targetCompanyInfo="ngModel" class="form-control" id="targetCompanyInfo" name="targetCompanyInfo" [(ngModel)]="target.companyInfo" placeholder="Company Zip Code" type="text" required></textarea>
+                  </div>
+      
+                </div>
+              </div>
+
+             <div class="row">
+              <div class="col-xs-12">
+                <label style="text-align: center;">
+                   Contact Names:
+                </label>
+              </div>
+            </div>
+
+          <div class="form-group">
+            <div class="row">
+            
+              <div class="col-xs-offset-1 col-sm-offset-4 col-md-offset-4 col-lg-offset-0 col-xs-8 col-sm-8 col-md-6 col-lg-4" 
+                  *ngFor="let keyContact of target.keyContacts; let i = index; trackBy: trackByFn">
+                <input name="target.keyContacts.name-{{i}}"  class="form-control" [(ngModel)]="target.keyContacts[i].name" placeholder="Target Name" type="text"
+                required/>
+                
+                <input name="target.keyContacts.phoneNumber-{{i}}" class="form-control" [(ngModel)]="target.keyContacts[i].phoneNumber" placeholder="Target Name" type="text"
+                  required/><br><br><br><br>
+                  <button class="btn btn-danger" (click)="onSelect(target.keyContacts[i])" (click)="openDeleteContactWarningDialog();"  style="margin-left: -90px;">Delete</button>
+              </div>
+
+            </div>
+          </div>
+
+          <div *ngIf="!addContactForm" class="row">
+              <div class="col-xs-12">
+                  <button class="btn" (click)="addContactForm=true;">Add Contact</button>
+              </div>
+            </div>
+
+          <div *ngIf="addContactForm"  class="row">
+            <form>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-8 col-md-4">
+                    <label for="addContactName">Contact Name:</label><br>
+                    <input name="addContactName" class="form-control" [(ngModel)]="addContactName" type="text" placeholder="First Name Last Name" maxlength="50" required />
+                  
+                    <div class="row"> 
+                      <div class="col-xs-12">
+                      </div> 
+                    </div>
+                  </div>
+                  
+                  <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-8 col-md-4">
+                    <label for="addContactPhoneNumber">Contact Phone Number:</label><br>
+                    <input  #contactPhoneNumber="ngModel" class="form-control" name="addContactPhoneNumber" [(ngModel)]="addContactPhoneNumber" type="text" pattern="^\d{3}-\d{3}-\d{4}$" maxlength="12" placeholder="999-999-9999" required/>
+                     <div class="row">
+                       <div class="col-xs-6">
+                         <p *ngIf="!contactPhoneNumber.valid && !contactPhoneNumber.pristine" class="alert alert-danger">999-999-9999</p>
+                        </div> 
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <button class="btn btn-success" type="submit" value="submit" [disabled]="!addContactName || !addContactPhoneNumber || !contactPhoneNumber.valid" 
+                            (click)="addContact(addContactName, addContactPhoneNumber);"
+                            (click)="addContactForm=false;"
+                        >Add Contact</button>
+                    
+                    <button class="btn btn-warn" (click)="addContactForm=false;"
+                            (click)="addContactName=null"
+                            (click)="addContactPhoneNumber=null"
+                            (click)="contactPhoneNumber.markAsPristine">Discard</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+          <div class="row">
+              <div class="col-xs-12">
+                <label style="text-align: center">
+                  Finacial Performance:
+                </label>
+              </div>
+            </div>
+
+          <div class="form-group">
+              <div class="row">
+
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetRevenue">Revenue:</label><br>
+                  <input #targetRevenue="ngModel" class="form-control" id="targetRevenue" name="targetRevenue" [(ngModel)]="target.financialPerformance.revenue" placeholder="Revenue" type="text"
+                   required/>
+                </div>
+                
+                <div class="col-xs-offset-1 col-sm-offset-3 col-md-offset-0 col-xs-11 col-sm-9 col-md-4">
+                  <label for="targetExpenses">Expenses:</label><br>
+                   <input #targetExpenses="ngModel" class="form-control" id="targetExpenses" name="targetExpenses" [(ngModel)]="target.financialPerformance.expenses" placeholder="Expenses" type="text"
+                           required/>
+                  </div>
+                  
+              </div>
+            </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" form="targetEditForm" [disabled]=(!targetEditForm.valid) class="btn btn-success" 
+                    (click)="onSaveChanges();" 
+                    (click)="edit=false;"
+                    (click)="targetService.openSubmitSuccessDialog();">Save</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

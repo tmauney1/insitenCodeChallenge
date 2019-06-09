@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.success-dialog .mat-dialog-container {
+    background-color: white;
+    color: black;
+    border-top: solid 5px #5CB85F;
+    border-bottom: solid 10px #5CB85F;
+}
+
+
+.warning-dialog .mat-dialog-container {
+  background-color: white;
+  color: black;
+  border-top: solid 5px #D8544F;
+  border-bottom: solid 10px #D8544F;
+
+}
+
+.ng-valid[required], .ng-valid.required {
+    border-left: 5px solid #42A948; /* green */
+  }
+  
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442; /* red */
+  }

@@ -1,0 +1,63 @@
+label{
+    width: 100%;
+    text-align: left;
+}
+
+input{
+    width: 55%;
+    float: left;
+}
+
+select{
+    width: 55%;
+    float: left;
+}
+
+textarea{
+    width: 55%;
+    float: left;
+}
+
+.contact-table-div{
+    width: 98%;
+    max-height: 450px;
+    overflow-y: auto;
+    box-shadow: 5px 10px 10px 0px rgba(0,0,0,.6);
+}
+
+.table-header{
+    background:#337ab7;
+    border-bottom: solid 2px #337ab7;
+    color: white;
+}
+
+.table-header:hover{
+    background:#337ab7;
+    border-bottom: solid 2px #337ab7;
+    color: white;
+}
+
+td, th{
+    padding: 5px;
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.delete-button{
+    margin-left: 5px;
+}
+
+.view-button{
+    margin-left: 5px;
+}
+
+.discard-button{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
