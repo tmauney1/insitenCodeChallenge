@@ -59,6 +59,13 @@ export class TargetsComponent implements OnInit {
     this.selectedTarget = target;
   }
 
+  openAddTargetForm(){
+
+    this.addTargetForm=true;
+    setTimeout(function() {window.scroll({top: 350, behavior: 'smooth'}); } , 50);
+    
+  }
+
   //Add new account target
   add(targetName, targetStatus, targetCompanyStreet, targetCompanyCity, targetCompanyState, targetCompanyZip,
       targetCompanyInfo, targetKeyContactName, targetKeyContactPhoneNumber, targetRevenue, targetExpenses){

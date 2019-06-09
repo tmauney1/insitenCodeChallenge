@@ -84,6 +84,11 @@ export class TargetDetailComponent implements OnInit {
     this.selectedContact = contact;
   }
 
+  openEditTargetForm(){
+    this.edit=true;
+    setTimeout(function() {window.scroll({top: 350, behavior: 'smooth'}); } , 50);
+  }
+
   onCancel(){
     this.getTarget();
     this.edit=false;
