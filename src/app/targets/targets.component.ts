@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Target } from '../models/target';
 import { TargetService } from '../target.service';
-import { MatTableDataSource, MatDialogConfig, MatDialog } from '@angular/material';
+import { MatDialogConfig, MatDialog } from '@angular/material';
 import { States } from '../models/states';
 import { Address } from '../models/address';
 import { FinancialIdicators } from '../models/financial-idicators';
-import { SuccessDialogData } from '../success-dialog/success-dialog.component';
 import { DeleteWarningDialogComponent, DeleteWarningDialogData } from '../delete-warning-dialog/delete-warning-dialog.component';
 
 @Component({
